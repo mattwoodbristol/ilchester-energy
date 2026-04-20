@@ -596,7 +596,7 @@
     <div class="legend">
       <div class="legend-item"><div class="legend-dot" style="background:rgba(104,211,145,0.9)"></div>EV (actual charging cost)</div>
       <div class="legend-item"><div class="legend-dot" style="background:rgba(99,179,237,0.8)"></div>Equivalent efficient petrol (52 mpg, 0.045 l/km)</div>
-      <div class="legend-item"><div class="legend-dot" style="background:rgba(246,173,85,0.8)"></div>Equivalent medium petrol (33 mpg, 0.07 l/km)</div>
+      <div class="legend-item"><div class="legend-dot" style="background:rgba(246,173,85,0.8)"></div>Equivalent inefficient petrol (33 mpg, 0.07 l/km)</div>
     </div>
   </div>
 
@@ -643,7 +643,7 @@ const SNAPSHOT = {
 2025,3003.708,644.53,,,90.17602486,505.3523655,3339.128162,2638.766,-1143.049412,-384.78
 2026,1586.672037,328.6133345,,,30.03297514,160.6253322,403.7151204,296.5517443,-138.8376299,-37.3799`,
 
-  car: `Date,miles driven,km driven,Car charging (ext),Car charging (home),Total charge cost,Cumulative cost,Petrol price (p/l),Cost for .045 l/km (52 mpg) petrol car,Cumulative cost for efficient petrol car,Cost for .07 l/km (33 mpg) petrol car,Cumulative cost for medium efficient petrol car
+  car: `Date,miles driven,km driven,Car charging (ext),Car charging (home),Total charge cost,Cumulative cost,Petrol price (p/l),Cost for .045 l/km (52 mpg) petrol car,Cumulative cost for efficient petrol car,Cost for .07 l/km (33 mpg) petrol car,Cumulative cost for inefficient petrol car
 01/02/26,382,611.2,£101.91,£0.00,£101.91,£101.91,131.38,£36.13,£36.13,£56.21,£56.21
 01/03/26,544,870,£0.00,£6.57,£6.57,£108.48,140.46,£55.02,£91.15,£85.58,£141.79
 01/04/26,0,0,£0.00,£17.32,£17.32,£125.80,136.03,£0.00,£91.15,£0.00,£141.79`,
@@ -1192,7 +1192,7 @@ function buildEVPetrolChart(carRows) {
       const month = `20${p[2].trim()}-${p[1]}`;
       const evCum     = num(r['Cumulative cost']);
       const effCum    = num(r['Cumulative cost for efficient petrol car']);
-      const medCum    = num(r['Cumulative cost for medium efficient petrol car']);
+      const medCum    = num(r['Cumulative cost for inefficient petrol car']);
       const miles     = num(r['miles driven']);
       const totalCost = num(r['Total charge cost']);
       if (evCum === null) return null;
@@ -1242,7 +1242,7 @@ function buildEVPetrolChart(carRows) {
           fill: false,
         },
         {
-          label: 'Medium petrol (33 mpg)',
+          label: 'Inefficient petrol (33 mpg)',
           data: rows.map(r => r.medCum),
           borderColor: 'rgba(246,173,85,1)',
           backgroundColor: 'rgba(246,173,85,0.08)',
